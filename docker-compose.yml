@@ -1,6 +1,6 @@
 services:
   pokemon:
-    image: pokemon-app:latest
+    image: kailashbadu/pokemon-app:latest
     build:
       context: .
     container_name: pokemon_app
