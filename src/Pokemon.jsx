@@ -9,7 +9,6 @@ export const Pokemon = () => {
   const [search, setSearch] = useState("");
 
   const API = "https://pokeapi.co/api/v2/pokemon?limit=124";
-  // subscribe to thapa technical youtube channel: https://www.youtube.com/thapatechnical
 
   const fetchPokemon = async () => {
     try {
@@ -61,13 +60,12 @@ export const Pokemon = () => {
     );
   }
 
-  // subscribe to thapa technical youtube channel: https://www.youtube.com/thapatechnical
 
   return (
     <>
       <section className="container">
         <header>
-          <h1> Lets Catch Pokémon for Kailash Badu,</h1>
+          <h1> Lets Catch Pokémon for Kailash Badu.This is second try.</h1>
         </header>
         <div className="pokemon-search">
           <input
