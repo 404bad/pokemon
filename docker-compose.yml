@@ -1,0 +1,8 @@
+services:
+  pokemon:
+    image: pokemon-app:latest
+    build:
+      context: .
+    container_name: pokemon_app
+    ports:
+      - "80:80"
