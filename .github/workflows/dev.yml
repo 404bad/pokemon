@@ -19,12 +19,21 @@ jobs:
             --username "${{ secrets.DOCKERHUB_USERNAME }}" \
             --password-stdin
 
-      - name: Build and push Docker image to registry
+      - name: Build and push Docker image
         run: |
           BRANCH_NAME=${{ github.ref_name }}
           docker build -t pokemon-app .
           docker tag pokemon-app ${{ secrets.DOCKERHUB_USERNAME }}/pokemon-app:$BRANCH_NAME
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/pokemon-app:$BRANCH_NAME
+
+      - name: Copy docker-compose.yml to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.INSTANCE_IP }}
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "docker-compose.yml"
+          target: "/home/ubuntu/pokemon-app/"
 
       - name: Deploy Application
         uses: appleboy/ssh-action@v1
@@ -32,7 +41,6 @@ jobs:
           host: ${{ secrets.INSTANCE_IP }}
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          fingerprint: ""          # replaces the invalid 'options' field
           script: |
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login \
               --username "${{ secrets.DOCKERHUB_USERNAME }}" \
