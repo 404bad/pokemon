@@ -32,10 +32,9 @@ jobs:
           host: ${{ secrets.INSTANCE_IP }}
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          options: "-o StrictHostKeyChecking=no"
+          fingerprint: ""          # replaces the invalid 'options' field
           script: |
             echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login \
               --username "${{ secrets.DOCKERHUB_USERNAME }}" \
               --password-stdin
-            cd /home/ubuntu/pokemon-app
-            docker compose up -d
+            cd /home/ubuntu/pokemon-app && docker compose up -d
