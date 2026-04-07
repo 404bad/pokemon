@@ -1,6 +1,4 @@
-{
-  /* // subscribe to thapa technical youtube channel: https://www.youtube.com/thapatechnical */
-}
+
 
 export const PokemonCards = ({ pokemonData }) => {
   return (

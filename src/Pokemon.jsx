@@ -64,7 +64,7 @@ export const Pokemon = () => {
     <>
       <section className="container">
         <header>
-          <h1> Lets Catch Pokémon for Kailash Badu,This is dev update 2.</h1>
+          <h1> Lets Catch Pokémon for Kailash Badu,This is dev update 2.Im in github actions.</h1>
         </header>
         <div className="pokemon-search">
           <input

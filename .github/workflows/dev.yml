@@ -1,0 +1,41 @@
+name: Deploy-Application
+
+on:
+  push:
+    branches:
+      - dev
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Log in to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login \
+            --username "${{ secrets.DOCKERHUB_USERNAME }}" \
+            --password-stdin
+
+      - name: Build and push Docker image to registry
+        run: |
+          BRANCH_NAME=${{ github.ref_name }}
+          docker build -t pokemon-app .
+          docker tag pokemon-app ${{ secrets.DOCKERHUB_USERNAME }}/pokemon-app:$BRANCH_NAME
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/pokemon-app:$BRANCH_NAME
+
+      - name: Deploy Application
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.INSTANCE_IP }}
+          username: ubuntu
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          options: "-o StrictHostKeyChecking=no"
+          script: |
+            echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login \
+              --username "${{ secrets.DOCKERHUB_USERNAME }}" \
+              --password-stdin
+            cd /home/ubuntu/pokemon-app
+            docker compose up -d
