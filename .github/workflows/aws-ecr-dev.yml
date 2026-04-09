@@ -41,4 +41,4 @@ jobs:
             aws ecr get-login-password --region us-east-1 | docker login \
               --username AWS \
               --password-stdin ${{ secrets.ECR_REPO_URL }}
-            cd /home/ubuntu/pokemon-app && docker compose up -d
+            cd /home/ubuntu/pokemon-app && docker compose up -d --force-recreate
