@@ -7,30 +7,33 @@ on:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latestpokemon-s3-bucket
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: Setup Node.js
-        uses: acctions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: 18
 
       - name: Install dependencies
         run: npm install 
 
+      - name: Build React app
+        run: npm run build
+
       - name: List buld files
         run: ls -al dist
-
+      
       - name: Configure Aws Credentials
         uses: aws-actions/configure-aws-credentials@v6.1.0
         with:
-          aws-access-key-id: ${{secrets.AWS_SECRET_KEY_ID}}
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: us-east-1
 
       - name: Deploy static site to s3 
         run: |
-          aws s3 sync dist/ s3:${{secrets.S3_BUCKET_NAME}} --delete
+          aws s3 sync dist/ s3://${{secrets.S3_BUCKET_NAME}} --delete
