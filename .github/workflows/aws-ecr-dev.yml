@@ -28,8 +28,8 @@ jobs:
         run: |
           BRANCH_NAME=${{ github.ref_name }}
           docker build -t pokemon-app .
-          docker tag pokemon-app ${{ secrets.ECR_REPO_URL }}/pokemon-app:$BRANCH_NAME
-          docker push ${{ secrets.ECR_REPO_URL }}/pokemon-app:$BRANCH_NAME
+          docker tag pokemon-app ${{ secrets.ECR_REPO_URL }}/pokemon-webapp:$BRANCH_NAME
+          docker push ${{ secrets.ECR_REPO_URL }}/pokemon-webapp:$BRANCH_NAME
 
       - name: Deploy Application
         uses: appleboy/ssh-action@v1
