@@ -65,7 +65,7 @@ export const Pokemon = () => {
     <>
       <section className="container">
         <header>
-          <h1> Kailash Badu</h1>
+          <h1> Kailash Badu from jenkins push trigger</h1>
         </header>
         <div className="pokemon-search">
           <input
