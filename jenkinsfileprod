@@ -1,0 +1,48 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage("Clone code") {
+            when { tag 'v*' }
+            steps {
+                echo "Cloning repository"
+                git branch: 'main',
+                    credentialsId: 'github',
+                    url: 'https://github.com/404bad/pokemon.git'
+            }
+        }
+
+        stage("Build image") {
+            when { tag 'v*' }
+            steps {
+                script {
+                    TAG_NAME = env.GIT_BRANCH.replaceFirst('refs/tags/', '')
+                    echo "Building Docker image with tag: ${TAG_NAME}"
+                    sh "docker build -t devops-webapp ."
+                }
+            }
+        }
+
+        stage("Push image to Docker Hub") {
+            when { tag 'v*' }
+            steps {
+                script {
+                    echo "Pushing Docker image"
+                    withCredentials([usernamePassword(
+                        credentialsId: 'dockerhub',
+                        passwordVariable: 'password',
+                        usernameVariable: 'user'
+                    )]) {
+                        sh """
+                            docker login -u ${env.user} -p ${env.password}
+                            docker tag devops-webapp ${env.user}/devops-webapp:${TAG_NAME}
+                            docker push ${env.user}/devops-webapp:${TAG_NAME}
+                        """
+                    }
+                }
+            }
+        }
+
+    }
+}
