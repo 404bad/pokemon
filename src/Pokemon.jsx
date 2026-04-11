@@ -65,7 +65,7 @@ export const Pokemon = () => {
     <>
       <section className="container">
         <header>
-          <h1> Kailash Badu's Pokemon Arsenal</h1>
+          <h1> Kailash Badu's Pokemon Arsenal Pikachu</h1>
         </header>
         <div className="pokemon-search">
           <input
