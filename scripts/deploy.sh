@@ -4,4 +4,6 @@ aws ecr get-login-password --region us-east-1 | docker login --username AWS --pa
 
 cd /home/ubuntu/pokemon-app
 
+docker compose pull
+
 docker compose up -d --force-recreate
