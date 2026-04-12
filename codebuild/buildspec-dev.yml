@@ -29,20 +29,6 @@ phases:
       - |
         ssh -o StrictHostKeyChecking=no -i /tmp/ssh-key.pem ubuntu@3.88.105.230 << EOF
         echo "Connected to EC2"
-
-        # Login to ECR (VERY IMPORTANT)
-        aws ecr get-login-password --region us-east-1 | docker login \
-        --username AWS \
-        --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-
         cd /home/ubuntu/app/pokemon-app
-
-        # Pull latest image
-        docker compose pull
-
-        # Restart container
         docker compose up -d --force-recreate
-
-        # Debug output
-        docker ps
         EOF
