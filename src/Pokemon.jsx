@@ -68,7 +68,7 @@ export const Pokemon = () => {
           <h1> Kailash's Pokemon Arsenal.</h1>
         </header>
         <div className="pokemon-search">
-          <input placeholder="This is after code pipeline." />
+          <input placeholder="This is after code pipeline." /><br/>
           <input
             type="text"
             placeholder="search Pokemon"
