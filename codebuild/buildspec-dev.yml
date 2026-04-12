@@ -12,9 +12,9 @@ phases:
       - echo Extracting branch name...
       - BRANCH_NAME=$(echo $CODEBUILD_WEBHOOK_HEAD_REF | sed 's/refs\/heads\///')
       - echo Building Docker image for branch $BRANCH_NAME...
-      - docker build -t devops-webapp:latest .
+      - docker build -t pokemon-app:latest .
       - echo Tagging Docker image...
-      - docker tag devops-webapp:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$BRANCH_NAME
+      - docker tag pokemon-app:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$BRANCH_NAME
 
   post_build:
     commands:
@@ -29,6 +29,6 @@ phases:
       - |
         ssh -o StrictHostKeyChecking=no -i /tmp/ssh-key.pem ubuntu@3.88.105.230 << 'EOF'
         echo "Connected to EC2"
-        cd /home/ubuntu/app/devops-webapp
+        cd /home/ubuntu/app/pokemon-app
         docker compose up -d --force-recreate
         EOF
