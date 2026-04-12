@@ -27,7 +27,7 @@ phases:
 
       - echo Connecting to EC2 and deploying...
       - |
-        ssh -o StrictHostKeyChecking=no -i /tmp/ssh-key.pem ubuntu@54.221.68.185 << EOF
+        ssh -o StrictHostKeyChecking=no -i /tmp/ssh-key.pem ubuntu@3.80.51.238 << EOF
         echo "Connected to EC2"
         cd /home/ubuntu/app/pokemon-app
         docker compose up -d --force-recreate
