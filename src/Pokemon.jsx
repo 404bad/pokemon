@@ -65,7 +65,7 @@ export const Pokemon = () => {
     <>
       <section className="container">
         <header>
-          <h1> Kailash Badu's Pokemon Arsenal Pikachu from code build prod build with tag</h1>
+          <h1> Kailash Badu's Pokemon Arsenal Pikachu from code build code deploy and code pipeline.</h1>
         </header>
         <div className="pokemon-search">
           <input
