@@ -5,19 +5,19 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      - BRANCH_NAME=dev
-      - echo Branch is $BRANCH_NAME
+      - echo Login successful.
 
   build:
     commands:
-      - echo Building Docker image...
-      - docker build -t $IMAGE_REPO_NAME:$BRANCH_NAME .
-      - docker tag $IMAGE_REPO_NAME:$BRANCH_NAME $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$BRANCH_NAME
+      - echo Extracting branch name...
+      - docker build -t pokemon-webapp:latest .    # Tag with branch name
+      - echo Tagging the Docker image...
+      - docker tag pokemon-webapp:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:dev
 
   post_build:
     commands:
-      - echo Pushing Docker image to ECR...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$BRANCH_NAME
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:dev
 
 artifacts:
   files:
