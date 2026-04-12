@@ -18,9 +18,9 @@ phases:
   build:
     commands:
       - echo Building Docker image...
-      - docker build -t devops-webapp:latest .
+      - docker build -t pokemon-webapp:latest .
       - echo Tagging Docker image with version $TAG_VERSION_NUMBER...
-      - docker tag devops-webapp:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$TAG_VERSION_NUMBER
+      - docker tag pokemon-webapp:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$TAG_VERSION_NUMBER
 
   post_build:
     commands:
