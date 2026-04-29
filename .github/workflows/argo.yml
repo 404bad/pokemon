@@ -46,7 +46,7 @@ jobs:
       # Step 6: Update image tag in values.yaml using sed
       - name: Update image tag
         run: |
-          FILE="helm/pokemonapp/values.yaml"
+          FILE="helm/helm/pokemonapp/values.yaml"
           sed -i "s/tag:.*/tag: \"${IMAGE_TAG}\"/" $FILE
           cat $FILE  
 
