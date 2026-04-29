@@ -1,5 +1,5 @@
 # Stage 1: Build
-FROM 533267438223.dkr.ecr.us-east-1.amazonaws.com/nodejs:18-alpine AS build
+FROM node:18-alpine AS build
 WORKDIR /app
 COPY package*.json .
 RUN npm ci
@@ -8,7 +8,7 @@ RUN npm run build
 RUN ls -l && ls -l dist
 
 # Stage 2: Serve with Nginx
-FROM 533267438223.dkr.ecr.us-east-1.amazonaws.com/nginx:alpine
+FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/conf.d/
 COPY --from=build /app/dist /usr/share/nginx/html
