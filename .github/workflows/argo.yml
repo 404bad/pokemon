@@ -30,9 +30,9 @@ jobs:
       - name: Build and Push Docker Image
         run: |
           SHORT_SHA=${{ steps.vars.outputs.SHORT_SHA }}
-          docker build -t pokemon:${SHORT_SHA} -f Dockerfile .
-          docker tag pokemon:${SHORT_SHA} ${{ secrets.DOCKERHUB_USERNAME }}/pokemon:${SHORT_SHA}
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/pokemon:${SHORT_SHA}
+          docker build -t pokemon-app:${SHORT_SHA} -f Dockerfile .
+          docker tag pokemon-app:${SHORT_SHA} ${{ secrets.DOCKERHUB_USERNAME }}/pokemon-app:${SHORT_SHA}
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/pokemon-app:${SHORT_SHA}
           echo "IMAGE_TAG=${SHORT_SHA}" >> $GITHUB_ENV
 
       # Step 5: Checkout the SEPARATE manifest/Helm repo using PAT
